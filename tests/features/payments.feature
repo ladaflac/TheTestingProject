@@ -15,6 +15,6 @@ Feature: Payments
   @wip
   Scenario: Account transfer validation error
     Given The Account transfer input page is opened
-    When The user doesn't enter all mandatory payment details
+    When The user does not enter all mandatory payment details
     And The user submits the data
     Then The error message is displayed
