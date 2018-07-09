@@ -7,6 +7,6 @@ testing practice field
 
 todo:
 - headless browser
-- screenshots
+- setup and teardown steps
 - test execution logs
 - CI
