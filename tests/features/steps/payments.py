@@ -18,7 +18,8 @@ def step_impl(context):
     pass
 
 @then('The success message is displayed')
-
+def step_impl(context):
+    pass
 
 @when('The user does not enter all mandatory payment details')
 def step_impl(context):
