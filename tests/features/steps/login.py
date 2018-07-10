@@ -1,6 +1,3 @@
-import os
-from datetime import datetime
-
 from behave import given, when, then
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -28,7 +25,5 @@ def step_impl(context):
 @then("The homepage is opened")
 def step_impl(context):
     WebDriverWait(context.driver, 10).until(expected_conditions.frame_to_be_available_and_switch_to_it('bzeMainIframe'))
-    filename = "login_" + datetime.now().strftime('%Y%m%d%H%M%S') + ".png"
-    context.driver.save_screenshot((os.path.join(os.path.expanduser('~\\Downloads'), filename)))
     headline = context.driver.find_element_by_xpath('/html/body/div[2]/h1[2]/span').text
-    assert headline.startswith('Welcomes') == True
+    assert headline.startswith('Welcome') == True
