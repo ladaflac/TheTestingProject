@@ -1,5 +1,4 @@
 from behave import given, when, then
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
@@ -7,8 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 @given("The login page is opened")
 def step_impl(context):
-    context.driver = webdriver.Chrome('C:\Windows\Webdriver\chromedriver.exe')
-    context.driver.get('https://ebanking-demo-ch1.ubs.com/auth/login1?userId=DEMO9999&languageCode=en')
+    assert context.driver.find_element(By.CLASS_NAME, 'uwr-keyline'), "Title 'Login' not found"
 
 @when("The user submits the prefilled contract number")
 def step_impl(context):

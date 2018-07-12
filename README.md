@@ -17,10 +17,10 @@ todo:
 
 
 Environment:
-This project was developed and tested on Windows 10 and Chrome browser.
+. This project was developed and tested on Windows 10 and Chrome browser.
 
 
 Main resources:
-https://selenium-python.readthedocs.io/
-https://github.com/SeleniumHQ/selenium/wiki
-https://behave.readthedocs.io/en/latest/index.html
+- https://selenium-python.readthedocs.io/
+- https://github.com/SeleniumHQ/selenium/wiki
+- https://behave.readthedocs.io/en/latest/index.html
