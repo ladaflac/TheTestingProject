@@ -26,4 +26,4 @@ def step_impl(context):
 def step_impl(context):
     WebDriverWait(context.driver, 10).until(expected_conditions.frame_to_be_available_and_switch_to_it('bzeMainIframe'))
     headline = context.driver.find_element_by_xpath('/html/body/div[2]/h1[2]/span').text
-    assert headline.startswith('Welcome') == True
+    assert headline.startswith('Welcome'), "The headline doesn't start with 'Welcome'"
