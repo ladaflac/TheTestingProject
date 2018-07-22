@@ -1,7 +1,7 @@
 # TheTestingProject
 
 testing practice field
-- python
+- python 3.6
 - bdd with behave
 - selenium webdriver
 
@@ -17,8 +17,9 @@ todo:
 
 
 Environment:
+
 . This project was developed and tested on Windows 10 and Chrome browser.
-. Pyton version is 3.6
+
 
 
 Main resources:
@@ -28,4 +29,4 @@ Main resources:
 - https://docs.python.org/3.6/tutorial/index.html
 
 Application under test:
-https://ebanking-demo-ch2.ubs.com/auth/login1
+https://ebanking-demo-ch2.ubs.com/auth/login1 (with English as language)
