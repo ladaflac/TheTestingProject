@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/ladaflac/TheTestingProject.svg?branch=master)](https://travis-ci.com/ladaflac/TheTestingProject)
+
+
 # TheTestingProject
 
 testing practice field for:
