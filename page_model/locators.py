@@ -11,7 +11,6 @@ class TopNavigationLocators:
     """Rules for finding the elements of the top menu"""
 
     TOP_NAVIGATION = By.CLASS_NAME, 'bzeTopNavi'
-    BUDGET_NAV = By.ID, 'bzeTopNaviBudgeting'
     PAYMENTS_NAV = By.ID, 'bzeTopNaviPaymentSector'
     OFFERINGS_NAV = By.ID, 'bzeTopNaviProdukte'
 
@@ -27,3 +26,9 @@ class OfferingsLocators:
 
     TITLE = By.TAG_NAME, 'title'
     OVERVIEW = By.ID, 'naviItem_OVERVIEW'
+
+class PaymentsLocators:
+    """Rules for finding the elements related to payments"""
+
+    PAYMENTS_MENU = By.XPATH, "//li[@id='bzeTopNaviPaymentSector']//div[@class='bzeTopNaviMenuContainer bzeTopNaviMenuContainerWithDa']"
+    ACC_TRANSFER = By.ID, 'bzeTopNaviMenuEntryPaymentSingleAccountTransfer'

@@ -1,9 +1,21 @@
 from behave import then, given, when
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 @given('The Account transfer input page is opened')
 def step_impl(context):
-    pass
+    context.execute_steps(u'''
+        Given The user is logged in the application
+        When The user hovers over 'Payments' in the top menu
+        When The user clicks the 'Account transfer' on the Payments menu
+    ''')
+    WebDriverWait(context.driver, 10).until(expected_conditions.frame_to_be_available_and_switch_to_it((By.ID, 'bzeMainIframe')))
+    title = context.driver.find_element(By.TAG_NAME, 'title')
+    assert title.get_attribute('text') == 'Account transfer - Enter', \
+        "Page title is '%s' instead of 'Account transfer - Enter'" % (title.get_attribute('text'))
+    context.driver.switch_to.default_content()
 
 @when('The user enters mandatory payment fields')
 def step_impl(context):
