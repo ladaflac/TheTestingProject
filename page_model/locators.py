@@ -4,7 +4,8 @@ from selenium.webdriver.common.by import By
 class CommonLocators:
     """Rules for finding elements that appear on multiple pages"""
 
-    MAIN_IFRAME = 'bzeMainIframe'
+    MAIN_IFRAME = By.ID, 'bzeMainIframe'
+    IFRAME_TITLE = By.TAG_NAME, 'title'
 
 
 class TopNavigationLocators:

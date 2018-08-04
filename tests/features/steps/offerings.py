@@ -1,8 +1,9 @@
 from behave import given, then
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from page_model.locators import OfferingsLocators #, CommonLocators
+
+from base_page import BasePage
+from page_model.locators import OfferingsLocators, CommonLocators
 
 
 @given("The Offerings page is opened")
@@ -11,8 +12,8 @@ def step_impl(context):
         Given The user is logged in the application
         When The user clicks the 'Offerings' on the top menu
     ''')
-    WebDriverWait(context.driver, 10).until(expected_conditions.frame_to_be_available_and_switch_to_it((By.ID, 'bzeMainIframe')))
-    title = context.driver.find_element(By.TAG_NAME, 'title')
+    WebDriverWait(context.driver, 10).until(expected_conditions.frame_to_be_available_and_switch_to_it(BasePage.main_iframe(context)))
+    title = BasePage.iframe_title(context)
     assert title.get_attribute('text') == 'Sales and Offering Space', \
         "Page title is '%s' instead of 'Sales and Offering Space'" % (title.get_attribute('text'))
     context.driver.switch_to.default_content()
