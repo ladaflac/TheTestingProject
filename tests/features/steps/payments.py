@@ -1,8 +1,9 @@
-from behave import then, given, when
+from behave import then, given, when, step
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from account_transfer_page import AccountTransferPage
-from base_page import BasePage
+from page_model.account_transfer_page import AccountTransferPageFields, AccountTransferPage
+from page_model.base_page import BasePage
+from db import DataParser
 
 
 @given('The Account transfer input page is opened')
@@ -13,31 +14,64 @@ def step_impl(context):
         When The user clicks the 'Account transfer' on the Payments menu
     ''')
     WebDriverWait(context.driver, 10).until(expected_conditions.frame_to_be_available_and_switch_to_it(BasePage.main_iframe(context)))
-    title = BasePage.iframe_title(context)
-    assert title.get_attribute('text') == 'Account transfer - Enter', \
-        "Page title is '%s' instead of 'Account transfer - Enter'" % (title.get_attribute('text'))
+    AccountTransferPage.payment_form_input(context)
+    context.driver.switch_to.default_content()
+
 
 @when('The user enters mandatory payment fields')
 def step_impl(context):
-    pass
+    context.driver.switch_to_frame(BasePage.main_iframe(context))
 
-@when('The user submits the form')
-def step_impl(context):
-    AccountTransferPage.submit(context).click()
+    AccountTransferPageFields.credit_acc_list(context).click()
+    AccountTransferPageFields.credit_acc(context).click()
+
+    # upit u bazu samo jednom za sva polja
+    amount_reason_date_dict = DataParser.input_data_fields(context)
+
+    amount = amount_reason_date_dict['AMOUNT']
+    AccountTransferPageFields.amount(context).send_keys(str(amount))
+
+    reason_for_payment = amount_reason_date_dict['REASON_FOR_PAYMENT']
+    AccountTransferPageFields.reason_for_payment(context).send_keys(reason_for_payment)
+
+    execution_date = amount_reason_date_dict['EXECUTION_DATE']
+    execution_date_formatted = execution_date.split('-')
+    yyyy = execution_date_formatted[0]
+    mm = execution_date_formatted[1]
+    dd = execution_date_formatted[2]
+    execution_date_formatted = dd + '.' + mm + '.' + yyyy
+    AccountTransferPageFields.execution_date(context).clear()
+    AccountTransferPageFields.execution_date(context).send_keys(execution_date_formatted)
+
     context.driver.switch_to.default_content()
+
+
+@step('The user submits the form')
+def step_impl(context):
+    context.driver.switch_to_frame(BasePage.main_iframe(context))
+    AccountTransferPageFields.submit(context).click()
+    context.driver.switch_to.default_content()
+
 
 @then('The confirmation page is opened')
 def step_impl(context):
-    pass
+    WebDriverWait(context.driver, 10).until(expected_conditions.frame_to_be_available_and_switch_to_it(BasePage.main_iframe(context)))
+    AccountTransferPage.payment_form_check(context)
+    context.driver.switch_to.default_content()
+
 
 @then('The success message is displayed')
 def step_impl(context):
-    pass
+    WebDriverWait(context.driver, 10).until(expected_conditions.frame_to_be_available_and_switch_to_it(BasePage.main_iframe(context)))
+    order_status = AccountTransferPageFields.payment_status(context).get_attribute('textContent')
+    assert order_status == 'Fully approved', "Actual status is '%s'" % (order_status)
+    context.driver.switch_to.default_content()
+
 
 @then('The error message is displayed')
 def step_impl(context):
     context.driver.switch_to_frame(BasePage.main_iframe(context))
-    WebDriverWait(context.driver, 10).until(expected_conditions.visibility_of(AccountTransferPage.error_container(context)))
-    error_message = AccountTransferPage.error_message(context)
-    assert error_message.get_attribute('textContent') == 'The entries are incomplete or incorrect:', "Error message '%s' is incorrect" % (error_message.get_attribute('textContent'))
+    WebDriverWait(context.driver, 10).until(expected_conditions.visibility_of(AccountTransferPageFields.error_container(context)))
+    error_message = AccountTransferPageFields.error_message(context).get_attribute('textContent')
+    assert error_message == 'The entries are incomplete or incorrect:', "Actual message is '%s'" % (error_message)
     context.driver.switch_to.default_content()
