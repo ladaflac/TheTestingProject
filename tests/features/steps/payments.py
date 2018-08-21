@@ -34,14 +34,10 @@ def step_impl(context):
     reason_for_payment = amount_reason_date_dict['REASON_FOR_PAYMENT']
     AccountTransferPageFields.reason_for_payment(context).send_keys(reason_for_payment)
 
-    execution_date = amount_reason_date_dict['EXECUTION_DATE']
-    execution_date_formatted = execution_date.split('-')
-    yyyy = execution_date_formatted[0]
-    mm = execution_date_formatted[1]
-    dd = execution_date_formatted[2]
-    execution_date_formatted = dd + '.' + mm + '.' + yyyy
+    yyyy, mm, dd = amount_reason_date_dict['EXECUTION_DATE'].split('-')
+    execution_date = dd + '.' + mm + '.' + yyyy
     AccountTransferPageFields.execution_date(context).clear()
-    AccountTransferPageFields.execution_date(context).send_keys(execution_date_formatted)
+    AccountTransferPageFields.execution_date(context).send_keys(execution_date)
 
     context.driver.switch_to.default_content()
 
