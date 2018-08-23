@@ -26,7 +26,6 @@ def step_impl(context):
     AccountTransferPageFields.credit_acc(context).click()
 
     # upit u bazu samo jednom za sva polja
-    global amount_reason_date_dict
     amount_reason_date_dict = DataParser.input_data_fields(context)
 
     amount = amount_reason_date_dict['AMOUNT']
