@@ -6,7 +6,7 @@ class AccountTransferPage(BasePage):
     def payment_form_input(self):
         return self.driver.find_element(*PaymentsLocators.PAYMENT_FORM_INPUT)
 
-    def payment_form_check(self):
+    def payment_form_confirm(self):
         return self.driver.find_element(*PaymentsLocators.PAYMENT_FORM_CHECK)
 
 
