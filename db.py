@@ -1,3 +1,5 @@
+import random
+
 from airtable import Airtable
 
 
@@ -15,14 +17,14 @@ class DbTables:
 
 
 class GetDataFromDb:
-    def get_input_data_one_record(self):
-        record = Airtable(AirtblAuth.BASE_KEY, DbTables.ACC_TRSF_INPUT, AirtblAuth.API_KEY).get_all(max_records=1)
-        return record
+    def get_input_data_random_record(self):
+        random_record = Airtable(AirtblAuth.BASE_KEY, DbTables.ACC_TRSF_INPUT, AirtblAuth.API_KEY).get_all()
+        print(random_record)
+        return random.choice(random_record)
 
 
 class DataParser:
     def input_data_fields(self):
-        record_list = GetDataFromDb.get_input_data_one_record(self)
-        record_dict = record_list[0]
+        record_dict = GetDataFromDb.get_input_data_random_record(self)
         fields_dict = record_dict['fields']
         return fields_dict
