@@ -5,9 +5,9 @@ testing practice field for:
 - BDD with Behave
 - Selenium Webdriver
 
-todo:
-- headless browser
+to-do:
 - scenario outlines (example tables)
+- step matcher
 - execution report
 - test execution logs
 - CI
