@@ -8,8 +8,9 @@ def before_all(context):
     options = Options()
     options.headless = False
     options.add_argument('disable-gpu')
-    context.driver = webdriver.Chrome('C:\Windows\Webdriver\chromedriver.exe', chrome_options=options)
+    context.driver = webdriver.Chrome(chrome_options=options)
     context.driver.get('https://ebanking-demo-ch1.ubs.com/auth/login1?userId=DEMO9999&languageCode=en')
+
 
 def after_step(context, step):
     if step.status == 'failed':
