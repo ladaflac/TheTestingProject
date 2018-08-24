@@ -3,7 +3,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from page_model.account_transfer_page import AccountTransferPageFields, AccountTransferPage
 from page_model.base_page import BasePage
-from db import DataParser, SaveDataToDb
+from db import DataParser, SaveDataToDb, GetDataFromDb
 
 
 @given('The Account transfer input page is opened')
@@ -64,12 +64,26 @@ def step_impl(context):
     WebDriverWait(context.driver, 10).until(expected_conditions.frame_to_be_available_and_switch_to_it(BasePage.main_iframe(context)))
     order_status = AccountTransferPageFields.payment_status(context).get_attribute('textContent')
     assert order_status == 'Fully approved', "Actual status is '%s'" % order_status
+    context.driver.switch_to.default_content()
 
-    # save input data to the database only if payment was successful
+    # check the database only if payment was successful
+    orders_count_before = len(GetDataFromDb.get_all_payments(context))
+    context.orders_count_before = orders_count_before
+
+
+@then('Payment is saved')
+def step_impl(context):
+    # I don't have access to this application's real db, so I am saving a payment copy to Airtable db
     payment_data_to_save = context.new_payment_data
     SaveDataToDb.create_new_payment(context, payment_data_to_save)
+    # todo: assert response status
 
-    context.driver.switch_to.default_content()
+
+@then('The number of transfers in the database increases by 1')
+def step_impl(context):
+    orders_count_after = len(GetDataFromDb.get_all_payments(context))
+    orders_increase = orders_count_after - context.orders_count_before
+    assert orders_increase == 1, "Orders count increased by %d instead by 1" % orders_increase
 
 
 @then('The error message is displayed')

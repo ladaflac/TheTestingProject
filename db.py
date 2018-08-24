@@ -22,6 +22,10 @@ class GetDataFromDb:
         random_record = random.choice(all_records)
         return random_record
 
+    def get_all_payments(self):
+        all_payments = Airtable(AirtblAuth.BASE_KEY, DbTables.ACC_TRSF_ORDERS, AirtblAuth.API_KEY).get_all()
+        return all_payments
+
 
 class DataParser:
     def input_data_fields(self):
@@ -41,4 +45,4 @@ class SaveDataToDb:
     def create_new_payment(self, payment_data_to_save):
         payment_data_to_save_final = DataParser.create_account_transfer(self, payment_data_to_save)
         Airtable(AirtblAuth.BASE_KEY, DbTables.ACC_TRSF_ORDERS, AirtblAuth.API_KEY).insert(payment_data_to_save_final)
-        # todo: handle the response from api
+        # todo: handle the response from api (return)
