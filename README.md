@@ -23,6 +23,7 @@ Main resources:
 - https://selenium-python.readthedocs.io/
 - https://github.com/SeleniumHQ/selenium/wiki
 - https://behave.readthedocs.io/en/latest/index.html
+- http://behave.github.io/behave.example/
 - https://docs.python.org/3.6/tutorial/index.html
 
 Application under test:
