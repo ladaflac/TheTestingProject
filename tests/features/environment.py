@@ -2,6 +2,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from datetime import datetime
 import os
+import testrail
 
 
 def before_all(context):
@@ -17,3 +18,9 @@ def after_step(context, step):
         filename = context.scenario.name + "_" + datetime.now().strftime('%Y%m%d%H%M%S') + ".png"
         context.driver.save_screenshot((os.path.join(os.path.expanduser('~\\Downloads'), filename)))
         context.driver.switch_to.default_content()
+
+
+# todo
+def after_step(context, step):
+    client = testrail.APIClient('https://ladaflac.testrail.io/')
+    client.send_post('add_result/1', {'status_id': 1})
