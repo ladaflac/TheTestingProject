@@ -4,6 +4,7 @@ Feature: Payments
   So that my debt gets paid off
 
   # todo: break in 2 scenarios; too many Then steps
+  @case_id=C12
   Scenario: Account transfer success
     Given The Account transfer input page is opened
     When The user enters mandatory payment fields
@@ -17,6 +18,7 @@ Feature: Payments
       Note: Not a good test if the tests are running in paralell!
       """
 
+  @case_id=C13
   Scenario: Account transfer validation error
     Given The Account transfer input page is opened
     When The user submits the form

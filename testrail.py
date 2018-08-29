@@ -17,7 +17,6 @@ class APIClient:
 	def __init__(self, base_url):
 		self.user = 'lada.flac+testrail@gmail.com'
 		self.password = '5ilydvqv5Y4YatLm9J1O'
-		# self.key = 'ul6D0JkWlsGByWpp41kB-PQ2ewptKEs9kAidNA9/o'
 		if not base_url.endswith('/'):
 			base_url += '/'
 		self.__url = base_url + 'index.php?/api/v2/'
@@ -54,13 +53,14 @@ class APIClient:
 
 	def __send_request(self, method, uri, data):
 		url = self.__url + uri
+		print(url)
+		print(data)
 		request = urllib.request.Request(url)
 		if (method == 'POST'):
 			request.data = bytes(json.dumps(data), 'utf-8')
 		auth = str(
 			base64.b64encode(
 				bytes('%s:%s' % (self.user, self.password), 'utf-8')
-				# bytes('%s:%s' % (self.user, self.key), 'utf-8')
 			),
 			'ascii'
 		).strip()

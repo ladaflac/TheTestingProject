@@ -3,6 +3,8 @@ Feature: Login to demo application
   I want to login
   So that I get access to the bank's online services
 
+
+  @case_id=C10
   Scenario: Login with demo QR code
     Given The login page is opened
     When The user submits the prefilled contract number

@@ -2,7 +2,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from datetime import datetime
 import os
-import testrail
+from testrail_cfg import AddResultForCase, AddRun
 
 
 def before_all(context):
@@ -11,6 +11,7 @@ def before_all(context):
     options.add_argument('disable-gpu')
     context.driver = webdriver.Chrome(chrome_options=options)
     context.driver.get('https://ebanking-demo-ch1.ubs.com/auth/login1?userId=DEMO9999&languageCode=en')
+    context.run_id = AddRun().get_run_id()
 
 
 def after_step(context, step):
@@ -20,7 +21,13 @@ def after_step(context, step):
         context.driver.switch_to.default_content()
 
 
-# todo
-def after_step(context, step):
-    client = testrail.APIClient('https://ladaflac.testrail.io/')
-    client.send_post('add_result/1', {'status_id': 1})
+def find_case_id_tag(scenario):
+    for tag in scenario.tags:
+        if tag.startswith('case_id='):
+            return tag[9:]
+
+
+def after_scenario(context, scenario):
+    status = scenario.status
+    case_id = find_case_id_tag(scenario)
+    AddResultForCase().send_result(context, status, case_id)
