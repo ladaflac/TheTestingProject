@@ -14,7 +14,9 @@ config.read('run_settings.ini')
 def before_all(context):
     options = Options()
     # false for gui execution, true for headless
-    options.headless = True
+    headless_setting = config['chrome']['headless']
+    if headless_setting == 'true':
+        options.headless = True
     options.add_argument('disable-gpu')
     context.driver = webdriver.Chrome(chrome_options=options)
     context.driver.get('https://ebanking-demo-ch1.ubs.com/auth/login1?userId=DEMO9999&languageCode=en')
