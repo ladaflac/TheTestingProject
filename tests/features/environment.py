@@ -13,13 +13,14 @@ config.read('run_settings.ini')
 # todo: make tests independent by adding login/logout for each test separately
 def before_all(context):
     options = Options()
-    # false for gui execution, true for headless
     headless_setting = config['chrome']['headless']
     if headless_setting == 'true':
         options.headless = True
     options.add_argument('disable-gpu')
     context.driver = webdriver.Chrome(chrome_options=options)
-    context.driver.get('https://ebanking-demo-ch1.ubs.com/auth/login1?userId=DEMO9999&languageCode=en')
+
+    login_page = config['urls']['login_page']
+    context.driver.get(login_page)
 
     testrail_active = config['testrail']['account_active']
     if testrail_active == 'true':
