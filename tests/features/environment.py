@@ -3,8 +3,14 @@ from selenium import webdriver
 from datetime import datetime
 import os
 from testrail_cfg import AddResultForCase, AddRun
+import configparser
 
 
+config = configparser.ConfigParser()
+config.read('run_settings.ini')
+
+
+# todo: make tests independent by adding login/logout for each test separately
 def before_all(context):
     options = Options()
     # false for gui execution, true for headless
@@ -12,7 +18,10 @@ def before_all(context):
     options.add_argument('disable-gpu')
     context.driver = webdriver.Chrome(chrome_options=options)
     context.driver.get('https://ebanking-demo-ch1.ubs.com/auth/login1?userId=DEMO9999&languageCode=en')
-    context.run_id = AddRun().get_run_id()
+
+    testrail_active = config['testrail']['account_active']
+    if testrail_active == 'true':
+        context.run_id = AddRun().get_run_id()
 
 
 def after_step(context, step):
@@ -22,13 +31,15 @@ def after_step(context, step):
         context.driver.switch_to.default_content()
 
 
+
 def find_case_id_tag(scenario):
     for tag in scenario.tags:
         if tag.startswith('case_id='):
             return tag[9:]
 
-
 def after_scenario(context, scenario):
-    status = scenario.status
-    case_id = find_case_id_tag(scenario)
-    AddResultForCase().send_result(context, status, case_id)
+    testrail_active = config['testrail']['account_active']
+    if testrail_active == 'true':
+        status = scenario.status
+        case_id = find_case_id_tag(scenario)
+        AddResultForCase().send_result(context, status, case_id)
