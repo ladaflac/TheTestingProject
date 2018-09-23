@@ -5,6 +5,7 @@ import testrail
 class TestRailParams:
     project_id = '1'
     base_url = 'https://ladaflac.testrail.io/'
+    account_active = False
 
     def testrail_status(status):
         if status == 'passed':

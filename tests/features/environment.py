@@ -2,7 +2,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from datetime import datetime
 import os
-from testrail_cfg import AddResultForCase, AddRun
+from testrail_cfg import AddResultForCase, AddRun, TestRailParams
 import configparser
 
 
@@ -22,8 +22,7 @@ def before_all(context):
     login_page = config['urls']['login_page']
     context.driver.get(login_page)
 
-    testrail_active = config['testrail']['account_active']
-    if testrail_active == 'true':
+    if TestRailParams.account_active is True:
         context.run_id = AddRun().get_run_id()
 
 
@@ -41,8 +40,7 @@ def find_case_id_tag(scenario):
             return tag[9:]
 
 def after_scenario(context, scenario):
-    testrail_active = config['testrail']['account_active']
-    if testrail_active == 'true':
+    if TestRailParams.account_active is True:
         status = scenario.status
         case_id = find_case_id_tag(scenario)
         AddResultForCase().send_result(context, status, case_id)
