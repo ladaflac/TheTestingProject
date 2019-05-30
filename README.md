@@ -25,6 +25,7 @@ Main resources:
 - https://behave.readthedocs.io/en/latest/index.html
 - http://behave.github.io/behave.example/
 - https://docs.python.org/3.6/tutorial/index.html
+- highlight elements: Dave Haeffner newsletter dd 26 Mar 2019 "How To Visually Verify Locators In Your Selenium Tests"
 
 Application under test:
 - https://ebanking-demo-ch2.ubs.com/auth/login1 (with English as preferred language)

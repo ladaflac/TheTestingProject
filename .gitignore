@@ -162,6 +162,7 @@ celerybeat-schedule
 .venv
 env/
 venv/
+venv_old
 ENV/
 env.bak/
 venv.bak/
@@ -178,3 +179,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+/highlight_elements_email_blogpost.html
+/highlight_elements_email_blogpost.txt

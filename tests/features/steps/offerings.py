@@ -3,6 +3,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from page_model.base_page import BasePage
 from page_model.locators import OfferingsLocators
+from highlight_elements import HighlightElements
 
 
 @given("The Offerings page is opened")
@@ -21,5 +22,6 @@ def step_impl(context):
 def step_impl(context):
     context.driver.switch_to_frame('bzeMainIframe')
     offerings_overview = WebDriverWait(context.driver, 10).until(expected_conditions.element_to_be_clickable(OfferingsLocators.OVERVIEW))
+    HighlightElements.highlight(context, offerings_overview)
     assert offerings_overview.text.startswith('Overview'), "The Overview section is not present"
     context.driver.switch_to.default_content()
