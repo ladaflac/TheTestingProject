@@ -9,17 +9,16 @@ Feature: Payments
     Given The Account transfer input page is opened
     When The user enters mandatory payment fields
     And The user submits the form
-    Then The confirmation page is opened
-    And The user submits the form
-    And The success message is displayed
+    Then The success message is displayed
     And Payment is saved
     And The number of transfers in the database increases by 1
       """
       Note: Not a good test if the tests are running in paralell!
       """
 
-  @case_id=C13
-  Scenario: Account transfer validation error
-    Given The Account transfer input page is opened
-    When The user submits the form
-    Then The error message is displayed
+  # todo find a way to read the error msg
+#  @case_id=C13
+#  Scenario: Account transfer validation error
+#    Given The Account transfer input page is opened
+#    When The user submits the form
+#    Then The error message is displayed

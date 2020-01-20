@@ -19,8 +19,8 @@ def before_all(context):
     options.add_argument('disable-gpu')
     context.driver = webdriver.Chrome(chrome_options=options)
 
-    login_page = config['urls']['login_page']
-    context.driver.get(login_page)
+    application_site = config['urls']['application_site']
+    context.driver.get(application_site)
 
     if TestRailParams.account_active is True:
         context.run_id = AddRun().get_run_id()
@@ -31,7 +31,6 @@ def after_step(context, step):
         filename = context.scenario.name + "_" + datetime.now().strftime('%Y%m%d%H%M%S') + ".png"
         context.driver.save_screenshot((os.path.join(os.path.expanduser('~\\Downloads'), filename)))
         context.driver.switch_to.default_content()
-
 
 
 def find_case_id_tag(scenario):

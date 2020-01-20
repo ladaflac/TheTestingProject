@@ -17,6 +17,12 @@ class AccountTransferPageFields(BasePage):
     def credit_acc(self):
         return self.driver.find_element(*PaymentsLocators.CREDIT_ACC)
 
+    def debit_acc_list(self):
+        return self.driver.find_element(*PaymentsLocators.DEBIT_ACC_LIST)
+
+    def debit_acc(self):
+        return self.driver.find_element(*PaymentsLocators.DEBIT_ACC)
+
     def amount(self):
         return self.driver.find_element(*PaymentsLocators.AMOUNT)
 
@@ -36,4 +42,4 @@ class AccountTransferPageFields(BasePage):
         return self.driver.find_element(*PaymentsLocators.ERROR_MESSAGE)
 
     def payment_status(self):
-        return self.driver.find_element(*PaymentsLocators.PAYMENT_STATUS)
+        return self.driver.find_element(*PaymentsLocators.PAYMENT_STATUS_SUCCESS)

@@ -11,8 +11,8 @@ class BasePage():
     def user_menu(self):
         return self.driver.find_element(*HeaderLocators.USER_MENU)
 
-    def top_nav_offerings(self):
-        return self.driver.find_element(*TopNavigationLocators.OFFERINGS_NAV)
+    # def top_nav_offerings(self):
+    #     return self.driver.find_element(*TopNavigationLocators.OFFERINGS_NAV)
 
     def top_nav_payments(self):
         return self.driver.find_element(*TopNavigationLocators.PAYMENTS_NAV)
