@@ -1,9 +1,8 @@
 Feature: Payments
-  As a consumer
-  I want to pay the bills
+  As an account owner
+  I want to make money transfers
   So that my debt gets paid off
 
-  # todo: break in 2 scenarios; too many Then steps
   @case_id=C12
   Scenario: Account transfer success
     Given The Account transfer input page is opened

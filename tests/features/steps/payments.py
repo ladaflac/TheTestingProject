@@ -1,5 +1,6 @@
 from time import sleep
 from behave import then, given, when, step
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from highlight_elements import HighlightElements
@@ -34,9 +35,9 @@ def step_impl(context):
     AccountTransferPageFields.amount(context).click()
     AccountTransferPageFields.amount(context).send_keys(str(amount))
 
-    # skipping the reason for payment field, it is not mandatory anymore
-    # reason_for_payment = amount_reason_date_dict['REASON_FOR_PAYMENT']
-    # AccountTransferPageFields.reason_for_payment(context).send_keys(reason_for_payment)
+    # add payment description to Booking text field
+    reason_for_payment = amount_reason_date_dict['REASON_FOR_PAYMENT']
+    AccountTransferPageFields.reason_for_payment(context).send_keys(reason_for_payment)
 
     # todo adjust the input of date to the new date format
     # yyyy, mm, dd = amount_reason_date_dict['EXECUTION_DATE'].split('-')
@@ -51,6 +52,7 @@ def step_impl(context):
 
 @step('The user submits the form')
 def step_impl(context):
+    ActionChains(context.driver).move_to_element(AccountTransferPageFields.submit(context)).perform()
     HighlightElements.highlight(context, AccountTransferPageFields.submit(context))
     AccountTransferPageFields.submit(context).click()
 
@@ -60,7 +62,7 @@ def step_impl(context):
     WebDriverWait(context.driver, 10).until(expected_conditions.url_contains("payment-wizard"))
     sleep(1)
     order_status = AccountTransferPageFields.payment_status(context).text
-    assert order_status.startswith('Your order has been accepted') == True, "Actual status is '%s'" % order_status
+    assert order_status.startswith('Your order has been accepted') is True, "Actual status is '%s'" % order_status
 
     # check the previous number of orders in the database - only if payment was successful
     orders_count_before = len(GetDataFromDb.get_all_payments(context))
@@ -82,9 +84,10 @@ def step_impl(context):
     assert orders_increase == 1, "Orders count increased by %d instead by 1" % orders_increase
 
 
-# todo fix this: find a way to read the error msg
+# todo fix this: find a way to read the error msg when a mandatory field is not filled
 # @then('The error message is displayed')
 # def step_impl(context):
 #     sleep(2)
-#     error_message = AccountTransferPageFields.error_message(context).get_attribute('textContent')
+#     # error_message = AccountTransferPageFields.error_message(context).get_attribute('textContent')
+#     error_message = AccountTransferPageFields.error_message(context)
 #     assert error_message == 'Please fill out this field', "Actual message is '%s'" % error_message

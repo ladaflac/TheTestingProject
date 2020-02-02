@@ -2,7 +2,7 @@ from behave import given, then
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from page_model.base_page import BasePage
-from page_model.locators import OfferingsLocators
+# from page_model.locators import OfferingsLocators
 from highlight_elements import HighlightElements
 
 

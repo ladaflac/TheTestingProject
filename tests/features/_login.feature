@@ -1,13 +1,13 @@
-Feature: Access to demo application
-  As a registered user
-  I want to login
-  So that I get access to the bank's online services
+#Feature: Access to demo application
+#  As a registered user
+#  I want to login
+#  So that I get access to the bank's online services
 
 
-  Scenario: Open the homepage
-    Given The application page is loaded
-    When The user closes the welcome message
-    Then The user lands on the homepage
+#  Scenario: Open the homepage
+#    Given The application page is loaded
+#    When The user closes the welcome message
+#    Then The user lands on the homepage
 
 
 #  login was removed from the demo application

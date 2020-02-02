@@ -1,7 +1,7 @@
 from page_model.locators import TopNavigationLocators, HeaderLocators, PaymentsLocators, CommonLocators
 
 
-class BasePage():
+class BasePage:
     """Class containing the elements present on all pages"""
     def __init__(self, context):
         self.driver = context
@@ -17,20 +17,18 @@ class BasePage():
     def top_nav_payments(self):
         return self.driver.find_element(*TopNavigationLocators.PAYMENTS_NAV)
 
-
-    # frame below the menu
-
-    def main_iframe(self):
-        return self.driver.find_element(*CommonLocators.MAIN_IFRAME)
-
-    def iframe_title(self):
-        return self.driver.find_element(*CommonLocators.IFRAME_TITLE)
-
-
-    # payments
-
-    def payments_menu(self):
-        return self.driver.find_element(*PaymentsLocators.PAYMENTS_MENU)
+    def payments_dropdown(self):
+        return self.driver.find_element(*PaymentsLocators.PAYMENTS_MENU_OPTIONS)
 
     def acc_transfer(self):
         return self.driver.find_element(*PaymentsLocators.ACC_TRANSFER)
+
+
+class LoginPage(BasePage):
+    """Class containing the elements related to login"""
+
+    def demo_app_link(self):
+        return self.driver.find_element(*CommonLocators.DEMO_APP_LINK)
+
+    def ebanking_title(self):
+        return self.driver.find_element(*CommonLocators.EBANKING_PAGE_TITLE)

@@ -28,4 +28,5 @@ Main resources:
 - highlight elements: Dave Haeffner newsletter dd 26 Mar 2019 "How To Visually Verify Locators In Your Selenium Tests"
 
 Application under test:
-- https://secure.ubs.com/microsites/digital-ebanking-demo/en/
+- https://ebanking-ch2.ubs.com/workbench/WorkbenchOpenAction.do?login 
+  - link: Trial E-Banking demo 
